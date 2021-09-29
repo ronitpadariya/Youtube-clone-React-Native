@@ -1,11 +1,26 @@
 import React,{useState} from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TextInput, FlatList, ActivityIndicator } from 'react-native';
 import {Ionicons} from '@expo/vector-icons'
 import MiniCard from '../components/MiniCard'
 
 
+// https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=songs&type=video&key=AIzaSyD5Roq_hG0q5cCXXElIYHx1EfosZ2pUaXc
+
 const SearchScreen = ()=>{
     const [value,setValue] = useState("")
+    const [miniCardData, setMiniCard] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    const fetchData = ()=>{
+        setLoading(true)
+        fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${value}&type=video&key=AIzaSyD5Roq_hG0q5cCXXElIYHx1EfosZ2pUaXc`)
+        .then(res=>res.json())
+        .then(data=>{
+            setLoading(false)
+            setMiniCard(data.items)
+        })
+    }
+
     return(
         <View style={{flex:1}}>
             <View style={{
@@ -18,20 +33,24 @@ const SearchScreen = ()=>{
                     onChangeText={(text)=>setValue(text)}
                 />
                 <Ionicons 
-                    name="md-send" size={32}
+                    name="md-send" size={32} onPress={()=>fetchData()}
                 />
             </View>
 
-            <ScrollView>
-                <MiniCard />
-                <MiniCard />
-                <MiniCard />
-                <MiniCard />
-                <MiniCard />
-                <MiniCard />
-                <MiniCard />
-                <MiniCard />
-            </ScrollView>
+            { loading ? <ActivityIndicator style={{marginTop:10}} size="large" color="red" /> : null }
+            
+
+            <FlatList 
+                data={miniCardData}
+                renderItem={({item})=>{
+                    return <MiniCard 
+                        videoId={item.id.videoId}
+                        title={item.snippet.title}
+                        channel={item.snippet.channelTitle}
+                    />
+                }}
+                keyExtractor={item=>item.id.videoId}
+            />
 
         </View>
     )

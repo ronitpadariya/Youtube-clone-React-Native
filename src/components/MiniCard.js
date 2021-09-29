@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import {AntDesign, Ionicons, MaterialIcons} from '@expo/vector-icons'
 
-const MiniCard = ()=>{
+const MiniCard = (props)=>{
     return(
         <View style={{flexDirection:"row", margin:10, marginBottom:0}}>
             <Image 
-                source={{uri:"https://media.istockphoto.com/photos/abstract-blue-background-with-grunge-texture-and-white-geometric-and-picture-id1293539824?s=612x612"}}
+                source={{uri:`https://i.ytimg.com/vi/${props.videoId}/maxresdefault.jpg`}}
                 style={{
                     width:"45%",
                     height:100
@@ -21,11 +21,9 @@ const MiniCard = ()=>{
                 }}
                 ellipsizeMode="tail"
                 numberOfLines={3}
-                >This is amazing caurse sdrguh eregvhir awefcio awerjio aweri wef awerij waerij awefq3cr wecfjifwd 3rjiira weriil</Text>
+                >{props.title}</Text>
 
-                <Text style={{
-                    fontSize:12
-                }}>coders never quit</Text>
+                <Text style={{fontSize:12}}>{props.channel}</Text>
 
             </View>
         </View>
