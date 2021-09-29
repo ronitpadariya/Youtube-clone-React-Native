@@ -7,7 +7,7 @@ import Constant from 'expo-constants'
 
 // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=songs&type=video&key=AIzaSyD5Roq_hG0q5cCXXElIYHx1EfosZ2pUaXc
 
-const SearchScreen = ()=>{
+const SearchScreen = ({navigation})=>{
     const [value,setValue] = useState("")
     const [miniCardData, setMiniCard] = useState([])
     const [loading, setLoading] = useState(false)
@@ -25,11 +25,13 @@ const SearchScreen = ()=>{
     return(
         <View style={{
             flex:1,
-            marginTop:Constant.statusBarHeight,}}>
+            marginTop:Constant.statusBarHeight}}>
             <View style={{
                 padding:5,flexDirection:"row", justifyContent:"space-around", backgroundColor:"white", elevation:5
             }}>
-                <Ionicons name="md-arrow-back" size={32} />
+                <Ionicons name="md-arrow-back" size={32} 
+                    onPress={()=> navigation.goBack()}
+                />
                 <TextInput 
                     style={{width:"70%", backgroundColor:"#e6e6e6"}}
                     value={value}
