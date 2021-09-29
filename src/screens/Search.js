@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View, ScrollView, TextInput, FlatList, ActivityIndicator } from 'react-native';
 import {Ionicons} from '@expo/vector-icons'
 import MiniCard from '../components/MiniCard'
+import Constant from 'expo-constants'
 
 
 // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=songs&type=video&key=AIzaSyD5Roq_hG0q5cCXXElIYHx1EfosZ2pUaXc
@@ -22,7 +23,9 @@ const SearchScreen = ()=>{
     }
 
     return(
-        <View style={{flex:1}}>
+        <View style={{
+            flex:1,
+            marginTop:Constant.statusBarHeight,}}>
             <View style={{
                 padding:5,flexDirection:"row", justifyContent:"space-around", backgroundColor:"white", elevation:5
             }}>

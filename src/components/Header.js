@@ -10,6 +10,7 @@ const mycolor = "#212121"
 
   return (
     <View style={{
+        marginTop:Constant.statusBarHeight,
         height:45,
         backgroundColor:"white",
         flexDirection:"row",
