@@ -12,7 +12,7 @@ const mycolor = "#212121"
     <View style={{
         marginTop:Constant.statusBarHeight,
         height:45,
-        background:"white",
+        backgroundColor:"white",
         flexDirection:"row",
         justifyContent:"space-between",
         elevation:4,
