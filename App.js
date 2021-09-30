@@ -4,6 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
 
 import Constant from 'expo-constants';
 import Home from './src/screens/Home';
@@ -11,6 +14,11 @@ import Search from './src/screens/Search';
 import VideoPlayer from './src/screens/VideoPlayer';
 import Explore from './src/screens/Explore';
 import Subscribe from './src/screens/Subscribe';
+import {reducer} from './src/reducers/reducer';
+
+
+const store = createStore(reducer)
+
 
 const Stack = createStackNavigator()
 const Tabs =  createBottomTabNavigator()
@@ -28,7 +36,7 @@ const RootHome = ()=>{
               iconName = 'explore';
             } else if (route.name === 'subscribe') {
               iconName = 'subscriptions';
-            } 
+            }
 
             // You can return any component that you like here!
             return <MaterialIcons name={iconName} size={32} color={color} />;
@@ -46,15 +54,17 @@ const RootHome = ()=>{
 
 export default function App() {
   return (
-    <NavigationContainer >
-      <Stack.Navigator screenOptions={{
-        headerShown:false
-      }}>
-        <Stack.Screen name="rootHome" component={RootHome} />
-        <Stack.Screen name="search" component={Search} />
-        <Stack.Screen name="videoplayer" component={VideoPlayer} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer >
+        <Stack.Navigator screenOptions={{
+          headerShown:false
+        }}>
+          <Stack.Screen name="rootHome" component={RootHome} />
+          <Stack.Screen name="search" component={Search} />
+          <Stack.Screen name="videoplayer" component={VideoPlayer} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

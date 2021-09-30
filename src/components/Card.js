@@ -3,11 +3,11 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import {AntDesign, Ionicons, MaterialIcons} from '@expo/vector-icons'
 
 
-const Card = ()=>{
+const Card = (props)=>{
     return(
         <View style={{marginBottom:10}}>
             <Image 
-                source={{uri:"https://media.istockphoto.com/photos/abstract-blue-background-with-grunge-texture-and-white-geometric-and-picture-id1293539824?s=612x612"}}
+                source={{uri:`https://i.ytimg.com/vi/${props.videoId}/hqdefault.jpg`}}
                 style={{
                     width:"100%",
                     height:200
@@ -24,8 +24,8 @@ const Card = ()=>{
                     <Text style={{
                         fontSize:18,
                         width:Dimensions.get("screen").width - 50
-                    }} ellipsizeMode="tail" numberOfLines={2} >this is amazing coutse etg esth ryh ryhv r6b ruy er6y6 sety es5ty se5t ry vgt et vr</Text>
-                    <Text>this is amazing coutse</Text>
+                    }} ellipsizeMode="tail" numberOfLines={2} >{props.title}</Text>
+                    <Text>{props.channel}</Text>
                 </View>
             </View>
         </View>
