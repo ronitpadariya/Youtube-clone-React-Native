@@ -2,20 +2,25 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {AntDesign, Ionicons, MaterialIcons} from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useTheme } from '@react-navigation/native';
 import Constant from 'expo-constants'
+import {useDispatch, useSelector} from 'react-redux'
 
 export default function Header() {
 
   const navigation = useNavigation();
-  
-  const mycolor = "#212121"
+  const dispatch = useDispatch()
+  const {colors} = useTheme() 
+  const currentTheme = useSelector(state=>{
+      return state.myDarkMode
+  })
+  const mycolor = colors.iconColor
 
   return (
     <View style={{
         marginTop:Constant.statusBarHeight,
         height:45,
-        backgroundColor:"white",
+        backgroundColor:colors.headerColor,
         flexDirection:"row",
         justifyContent:"space-between",
         elevation:4,
@@ -41,7 +46,9 @@ export default function Header() {
         <Ionicons name="md-search" size={32} color={mycolor} 
             onPress={()=> navigation.navigate("search")}
         />
-        <MaterialIcons name="account-circle" size={32} color={mycolor} />
+        <MaterialIcons name="account-circle" size={32} color={mycolor}
+          onPress={()=>dispatch({type:"change_theme", payload:!currentTheme})}
+         />
       </View>
 
     </View>

@@ -18,7 +18,8 @@ const LittleCard = ({name})=>{
             <Text style={{
                 textAlign:"center",
                 color:"white",
-                fontSize:22
+                fontSize:22,
+                marginTop:5
             }}>{name}</Text>
         </View>
     )
@@ -26,13 +27,13 @@ const LittleCard = ({name})=>{
 
 const Explore = ()=>{
     const cardData = useSelector(state=>{
-        return state
+        return state.cardData
     })
     return(
         <View style={{flex:1}}>
             <Header />
             <ScrollView>
-            <View style:{{
+            <View style={{
                 flexDirection:"row",
                 flexWrap:"wrap",
                 justifyContent:"space-around"}}>
@@ -51,7 +52,7 @@ const Explore = ()=>{
 
             <FlatList 
                 data={cardData}
-                renderItem={(item)=>{
+                renderItem={({item})=>{
                 return <Card 
                     videoId={item.id.videoId}
                     title={item.snippet.title}

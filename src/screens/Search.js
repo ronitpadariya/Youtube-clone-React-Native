@@ -3,19 +3,22 @@ import { StyleSheet, Text, View, ScrollView, TextInput, FlatList, ActivityIndica
 import {Ionicons} from '@expo/vector-icons'
 import MiniCard from '../components/MiniCard'
 import Constant from 'expo-constants'
+import {useTheme} from '@react-navigation/native'
 import { useSelector, useDispatch} from 'react-redux'
 
 
 // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=songs&type=video&key=AIzaSyD5Roq_hG0q5cCXXElIYHx1EfosZ2pUaXc
 
 const SearchScreen = ({navigation})=>{
+    const {colors} = useTheme() 
+    const mycolor = colors.iconColor
     const [value,setValue] = useState("")
     // const [miniCardData, setMiniCard] = useState([])
     
     const dispatch = useDispatch()
 
     const miniCardData = useSelector(state=>{
-        return state
+        return state.cardData
     })
 
     const [loading, setLoading] = useState(false)
@@ -27,6 +30,7 @@ const SearchScreen = ({navigation})=>{
         .then(data=>{
             setLoading(false)
             // setMiniCard(data.items)
+            // console.log(data);
             dispatch({type:"add",payload:data.items})
         })
     }
@@ -36,9 +40,11 @@ const SearchScreen = ({navigation})=>{
             flex:1,
             marginTop:Constant.statusBarHeight}}>
             <View style={{
-                padding:5,flexDirection:"row", justifyContent:"space-around", backgroundColor:"white", elevation:5
+                padding:5,flexDirection:"row", justifyContent:"space-around", backgroundColor:colors.headerColor, elevation:5
             }}>
-                <Ionicons name="md-arrow-back" size={32} 
+                <Ionicons 
+                    style={{color:mycolor}}
+                    name="md-arrow-back" size={32} 
                     onPress={()=> navigation.goBack()}
                 />
                 <TextInput 
@@ -47,6 +53,7 @@ const SearchScreen = ({navigation})=>{
                     onChangeText={(text)=>setValue(text)}
                 />
                 <Ionicons 
+                    style={{color:mycolor}}
                     name="md-send" size={32} onPress={()=>fetchData()}
                 />
             </View>
@@ -57,6 +64,7 @@ const SearchScreen = ({navigation})=>{
             <FlatList 
                 data={miniCardData}
                 renderItem={({item})=>{
+                    // console.log(`MiniCard ${item.id.videoId}`);
                     return <MiniCard 
                         videoId={item.id.videoId}
                         title={item.snippet.title}

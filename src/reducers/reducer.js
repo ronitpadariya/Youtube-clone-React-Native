@@ -8,7 +8,7 @@ export const reducer =(state=initialState, action)=>{
         return action.payload
     }
 
-    return
+    return state
 }
 
 
